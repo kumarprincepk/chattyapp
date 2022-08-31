@@ -3,13 +3,14 @@ import {useState, useEffect} from 'react';
 import io from 'socket.io-client';
 import { nanoid } from 'nanoid'
 
-const socket = io("http://54.245.144.158:2121")
+const socket = io.connect("http://localhost:5000")
 const userName = nanoid(4);  
 
 function App() {
 
 const [message, setMessage] = useState("");
 const [chat, setChat] = useState([]);
+
 const sendChat = (e) => {
   e.preventDefault()
   socket.emit("chatting", {message, userName})
@@ -38,7 +39,7 @@ useEffect(()=>{
           setMessage(e.target.value)
         }}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Send</button>
       </form>
       </header>
     </div>
